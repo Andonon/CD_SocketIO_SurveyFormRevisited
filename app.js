@@ -1,12 +1,8 @@
 const express = require('express');
-const session = require('express-session');
-const bodyParser = require('body-parser');
-	
-const app = express();
-app.set('view engine', 'ejs');
 
-app.use(session({secret: 'lkjasldkjlaksjd098324lkjasdl0834'}));
-app.use(bodyParser.urlencoded({extended: true}));
+const app = express();
+
+app.set('view engine', 'ejs');
 
 app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist/'));
 app.use(express.static(__dirname + '/static'));
@@ -16,19 +12,27 @@ app.get('/', function(req, res){
     res.render('index');
 });
 
-app.post('/', function(req, res){
-    res.redirect('/');
-});
-
-app.post('/result', function(req, res){
-    postData = req.body;
-    console.log("*****************************************************");
-    console.log(req.body);
-    console.log("*****************************************************");
-    res.render('result', postData);
-});
-
-port=5000;
-app.listen(port, function() {
+port=8000;
+var server = app.listen(port, function() {
     console.log("Listening on Port: ", port);
+});
+
+var io = require('socket.io').listen(server);
+
+io.sockets.on('connection', function(socket){
+    console.log('connected socket', socket.id);
+        socket.on('socket_button_clicked', function (data){
+            console.log('Someone clicked a button!  Reason: '  + data.reason);
+            socket.emit('server_response', {response:  "sockets are the best!"});
+        });
+        socket.on('form_data', function (data){
+            console.log('inbound form data ' + data.yourname);
+            console.log('inbound form data ' + data.location);
+            console.log('inbound form data ' + data.language);
+            console.log('inbound form data ' + data.comments);
+            socket.emit('server_response', {response:  "got your data!"});
+        });
+        socket.on('disconnect', function(){
+        console.log('disconnected socket', socket.id)
+        });
 });

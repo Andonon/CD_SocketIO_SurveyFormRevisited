@@ -4,8 +4,26 @@
         <title>Survey Form</title>
         <meta description='Survey Form form'
         <meta charset='utf-8'/>
-        <script src='/jquery/jquery.js'></script>
         <link rel='stylesheet' type='text/css' href='css/style.css' />
+        <script src='/jquery/jquery.js'></script>
+        <script type='text/javascript' src='/socket.io/socket.io.js'></script>
+        <script type='text/javascript'>
+            $(document).ready(function(){
+                var socket = io.connect()
+                    $('#surveyform').submit(function(event){
+                        event.preventDefault();
+                        socket.emit("form_data", {   
+                            yourname: $('#yn').val(),
+                            location: $('#loc').val(), 
+                            language: $('#lang').val(), 
+                            comments: $('#comm').val()
+                        });
+                    });    
+                    socket.on('server_response',function(data){
+                        console.log('The server says: ' + data.response)
+                    });
+                });
+        </script>
     </head>
     <body>
         <div id='wrapper'>
@@ -14,11 +32,11 @@
             </div>
             <br><hr><br>
             <div id='survey'>
-                <form id='surveyform' action='/result' method='POST'>
+                <form id='surveyform'>
                     <label for='yourname'>Your Name:</label>
-                    <input type='text' name='yourname' placeholder='enter your name'><br><br>
+                    <input type='text' name='yourname' id='yn' placeholder='enter your name'><br><br>
                     <label for='location'>Dojo Location:</label>
-                    <select name='location'>
+                    <select name='location' id='loc'>
                         <option value='Seattle, WA'>Seattle, WA</option>
                         <option value='Silicon Valley, CA'>Silicon Valley, CA</option>
                         <option value='Los Angeles, CA'>Los Angeles, CA</option>
@@ -28,7 +46,7 @@
                         <option value='Tulsa, OK'>Tulsa, OK</option>                    
                     </select><br><br>
                     <label for="language">Favorite Language:</label>
-                    <select name='language'>
+                    <select name='language' id='lang'>
                         <option value='JavaScript'>JavaScript</option>
                         <option value='Python'>Python</option>
                         <option value='C#'>C#</option>
@@ -38,8 +56,8 @@
                         <option value='HTML/CSS'>HTML/CSS</option>
                     </select><br><br>
                     <label for="comments">Comments (optional):</label>
-                    <textarea name='comments' rows="5" cols="50"></textarea><br><br>
-                    <input type="submit" name="submit" value="Submit">
+                    <textarea name='comments' id='comm' rows="5" cols="50"></textarea><br><br>
+                    <input type="submit" id='submit' name='submit' value='Submit'>
                 </form>
             </div>
         </div>
