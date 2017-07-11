@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang='en'>
+    <head>
+        <title>Survey Results</title>
+        <meta description='survey results form'
+        <meta charset='utf-8'/>
+        <link rel='stylesheet' type='text/css' href='css/style.css' />
+    </head>
+    <body>
+        <div id='wrapper'>
+            <h3>Submitted Information</h3>
+            <br>
+            <hr>
+            <br>
+            <div id='results'>
+                <div id='infoheaders'>
+                    <h4>Name:</h4>
+                    <h4>Dojo Location:</h4>
+                    <h4>Favorite Language:</h4>
+                    <h4>Comments:</h4>
+                </div>
+                <div id='infodata'>
+                    <p><%=postData.yourname%></p>
+                    <p><%=postData.location%></p>
+                    <p><%=postData.language%></p>
+                    <p><%=postData.comments%></p>
+                </div>
+                <form action='/' method='POST'>
+                    <input type="submit" name="goback" value="Go Back">
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

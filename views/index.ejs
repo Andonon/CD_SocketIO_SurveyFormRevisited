@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang='en'>
+    <head>
+        <title>Survey Form</title>
+        <meta description='Survey Form form'
+        <meta charset='utf-8'/>
+        <script src='/jquery/jquery.js'></script>
+        <link rel='stylesheet' type='text/css' href='css/style.css' />
+    </head>
+    <body>
+        <div id='wrapper'>
+            <div id='header'>
+                <h3>Survey Form</h3>
+            </div>
+            <br><hr><br>
+            <div id='survey'>
+                <form id='surveyform' action='/result' method='POST'>
+                    <label for='yourname'>Your Name:</label>
+                    <input type='text' name='yourname' placeholder='enter your name'><br><br>
+                    <label for='location'>Dojo Location:</label>
+                    <select name='location'>
+                        <option value='Seattle, WA'>Seattle, WA</option>
+                        <option value='Silicon Valley, CA'>Silicon Valley, CA</option>
+                        <option value='Los Angeles, CA'>Los Angeles, CA</option>
+                        <option value='Dallas, TXdal'>Dallas, TX</option>
+                        <option value='Washington, DC'>Washington, DC</option>
+                        <option value='Chicago, IL'>Chicago, IL</option>
+                        <option value='Tulsa, OK'>Tulsa, OK</option>                    
+                    </select><br><br>
+                    <label for="language">Favorite Language:</label>
+                    <select name='language'>
+                        <option value='JavaScript'>JavaScript</option>
+                        <option value='Python'>Python</option>
+                        <option value='C#'>C#</option>
+                        <option value='C++'>C++</option>
+                        <option value='Ruby on Rails'>Ruby on Rails</option>
+                        <option value='IOS'>IOS</option>
+                        <option value='HTML/CSS'>HTML/CSS</option>
+                    </select><br><br>
+                    <label for="comments">Comments (optional):</label>
+                    <textarea name='comments' rows="5" cols="50"></textarea><br><br>
+                    <input type="submit" name="submit" value="Submit">
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
